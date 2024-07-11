@@ -30,7 +30,7 @@ rm(packages)
 ##DATA##
 
 #We use gender instead of sex. A 1 represents a female. We want to only grab females. 
-data_females <- haven::read_spss("./data/dataE_2112.sav") %>% dplyr::select(gender, CASE, sexdrive2, CSBD, PPCS_6, meffort, socialanx, lon, mvalue, attr) %>% filter(gender == 1) %>% dplyr::select(-gender)
+data_females <- haven::read_spss("./data/dataE_1402.sav") %>% dplyr::select(gender, CASE, sexdrive2, CSBD, PPCS_6, meffort, socialanx, lon, mvalue, attr) %>% filter(gender == 1) %>% dplyr::select(-gender)
 ```
 
 # 1. Distributions of Motivational Risk Variables
@@ -96,9 +96,11 @@ Show new descriptives after categorising the variables according to the quantile
 
 ```{r descriptives}
 #Create vector with rownames
-Scale <- c("Attraction to children", "Compulsive sex.", "Loneliness", "Mating effort", "Mate value", "Probl. porn use", "Sex drive", "Social anxiety")
+Variable <- c("Sex drive", "Mating effort",  "Social anxiety", "Loneliness", "Mate value", "Sex. interest children", "Compulsive sex. behaviour",
+              "Probl. porn use")
 #Bind Variable column to the beginning
-desc_f <- cbind(Scale, desc_f[, -1])
+desc_f <- cbind(Variable, desc_f[, -1]) %>% 
+  slice(6, 1, 7, 8, 2, 5, 3, 4)
 
 #Pretty output
 flextable(desc_f %>% select(-"type", -"missing")) %>%

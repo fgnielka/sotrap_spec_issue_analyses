@@ -38,7 +38,7 @@ The performed analyses are exploratory. -->
 
 ```{r data}
 #We use gender instead of sex. A 2 represents a male. We want to only grab males. 
-data_males <- haven::read_spss("./data/dataE_2112.sav") %>% dplyr::select(gender, CASE, sexdrive2, CSBD, PPCS_6, meffort, socialanx, lon, mvalue, attr) %>% filter(gender == 2) %>% dplyr::select(-gender)
+data_males <- haven::read_spss("./data/dataE_1402.sav") %>% dplyr::select(gender, CASE, sexdrive2, CSBD, PPCS_6, meffort, socialanx, lon, mvalue, attr) %>% filter(gender == 2) %>% dplyr::select(-gender)
 ```
 
 Figure A shows the distributions of all motivational factors used for the analyses in the present study. As some of the distributions were rather skewed, quantiles are included (except for sexual interest in children).
@@ -110,9 +110,11 @@ desc_m <- desc_m %>% select(name, type, n, missing, unique, mode, mode_value, v)
 # desc <- cbind(Variable, desc)
 
 #Create vector with rownames
-Scale <- c("Attraction to children", "Compulsive sex.", "Loneliness", "Mating effort", "Mate value", "Probl. porn use", "Sex drive", "Social anxiety")
+Variable <- c("Sex drive", "Compulsive sex. behaviour", "Probl. porn use", "Mating effort", "Social anxiety",
+              "Loneliness", "Mate value", "Sex. interest children")
 #Bind Variable column to the beginning
-desc_m <- cbind(Scale, desc_m[, -1])
+desc_m <- cbind(Variable, desc_m[, -1]) %>% 
+  slice(8, 1, 2, 3, 4, 7, 5, 6)
 
 #Pretty output
 flextable(desc_m %>% select(-"type", -"missing")) %>%
