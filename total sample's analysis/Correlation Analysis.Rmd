@@ -41,7 +41,7 @@ data_f <- haven::read_spss("./data/dataE_1402.sav") %>%
 
 colnames(data_f) <- c("Sex drive", "Compulsive sex. behaviour", "Probl. porn use", "Mating effort", "Social anxiety", "Loneliness", "Mate value", "Sex. interest children", "Speed", "DUI", "Rob a bank", "Kill someone", "Sex with prostitute", "Sex without consent", "Sex with animal", "Watch porn in public", "Watch CSEM", "Watch CSEM in darknet", "Online sex chat with child", "Pay/gift for CSEM", "Contact sex with child")
 
-data_f <- data_f %>% select("Sex. interest children", "Sex drive", "Compulsive sex. behaviour", "Probl. porn use", "Mating effort", "Social anxiety", "Loneliness", "Mate value", "Sex with prostitute", "Watch porn in public", "Sex without consent", "Sex with animal", "Watch CSEM", "Watch CSEM in darknet", "Online sex chat with child", "Pay/gift for CSEM", "Contact sex with child", "Speed", "DUI", "Rob a bank", "Kill someone") %>% rev()
+data_f <- data_f %>% select("Sex. interest children", "Sex drive", "Compulsive sex. behaviour", "Probl. porn use", "Mating effort", "Mate value", "Social anxiety", "Loneliness", "Sex with prostitute", "Watch porn in public", "Sex without consent", "Sex with animal", "Watch CSEM", "Watch CSEM in darknet", "Online sex chat with child", "Pay/gift for CSEM", "Contact sex with child", "Speed", "DUI", "Rob a bank", "Kill someone") %>% rev()
 
 # creating correlation matrix
 corr_mat_f <- round(cor(data_f, method="spearman"), 2)
