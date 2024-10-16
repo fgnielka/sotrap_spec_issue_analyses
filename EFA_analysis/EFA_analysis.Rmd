@@ -1,0 +1,59 @@
+---
+title: "EFA"
+author: "Frederic Gnielka"
+date: "2023-12-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r library}
+set.seed(42)
+
+#Declare vector of required packages
+packages <- c("tidyverse", "readr", "psych")
+
+#load function to check whether required packages are installed.
+source("./functions/check_required_packages.R")
+check_required_packages(packages)
+
+#load required packages
+lapply(packages, require, character.only=T)
+```
+
+```{r load_data}
+
+data <- haven::read_spss("./data/data_raw/dataE_clear5 2209.sav") %>% select(CASE, starts_with("Y")) %>% select(CASE, ends_with("r"))
+
+
+```
+
+```{r efa}
+
+scree(polychoric(data %>% select(-CASE))$rho)
+#Scree plot indicates three factor solution
+
+corr <- psych::polychoric(data %>% select(-CASE))$rho
+
+efa_3 <- psych::fa(r= corr, nfactors=3, rotate="promax", fm="minres")
+
+efa_2 <- psych::fa(r=corr, nfactors=2, rotate="promax")
+
+
+```
+
+```{r efa_2}
+print(efa_2, cut=.4, sort=T)
+```
+
+```{r efa_3}
+print(efa_3, cut=.4, sort=T)
+```
+```{r Omega}
+
+omega_sexfactor_3sol <- data %>% select(-c("Y_proclSpeed_r", "Y_proclDui_r", "Y_proclRob_r", "Y_proclKill_r", "Y_proclProstitute_r", "CASE")) %>% ci.reliability(B=10000, interval.type = "bsi")
+
+```
+
